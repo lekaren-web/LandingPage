@@ -1,0 +1,43 @@
+import React from 'react' 
+import ReactDOM from 'react-dom'
+
+//class Component
+//classes can extended other class and inherit other methods and properties from that class//
+//components is allows us to interact with the DOM; 
+class App extends React.Component {
+    constructor(){
+        super() //setting up the Components from the parent class//
+        //alowed to initialize state in the constructor ONLY
+        this.state = {
+            message: "I LOVE JESS",
+            otherMessage: "I LOVE US",
+        }
+        this.modifyFirstMessage = this.modifyFirstMessage.bind(this)) 
+        //we bind otherwise the 'this' in the modifyFirstMessage function will not be the App component
+    }
+
+    ModifyFirstMessage(){
+        this.setState(
+            {
+                message: "I LIKE GREEN EH",
+                otherMEssage: "YUMMY"
+            }
+        )
+    }
+    //painting the html onto the dom; EVERYTHING needs to render and it will
+    return html// 
+    render(){
+        <div>
+        <h1>this is my first component</h1>
+        <p>{this.state.message}</p> //you can only access the class or components if its in the curly braces//
+        <p>{this.state.otherMessage}</p>
+        <button onClick={this.modifyFirstMessage}>
+        CLick this button to change my first message
+        <button>
+        </dib>
+    }
+}
+//first parameter is our component we want to render
+// second parameter is the DOM element we want to replace the content of 
+ReactDOM.render(<App />, document.getElementById('app')) 
+//this links our react to the dom,

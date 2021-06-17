@@ -1,0 +1,6 @@
+*.swp
+**/node_modules/
+**/tmp/
+.ruby-version
+**/log/
+orders/log/*

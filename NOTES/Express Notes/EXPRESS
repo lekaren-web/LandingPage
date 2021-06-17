@@ -1,0 +1,85 @@
+Express is a server-side or 'back-end' web framework; it is 
+very basic at it's core. It handles requests in Node.js
+
+Often times you will build an API (Application Programming Interface)
+with Express and it taskes requests from the front-end and serves back data 
+usually in Json Format. 
+
+Basic Express Server Syntax: 
+----------------------------------------------------------------------------
+//install and require Express in your file; 
+    const express = require('Express')
+    const app = express()
+//now that you initiated express with app ^;
+//you can now create your endpoints and route handlers
+
+    app.get('/', (req,res,next)=>{
+        res.send()
+        res.sendFile()
+        res.json()
+    //Last but not least always use try/catch block and error handlers
+        try {}
+        catch(err){
+            next(err)
+        }
+    })
+-----------------------------------------------------------------------------
+// The routes that express includes are :
+- app.get()
+- app.post()
+- app.put()
+- app.delete()
+
+WHAT DO THESE DO??? 
+
+app.get():
+    This route when called in the browser URL will serve back data/ or content to
+    the browser.
+
+app.post(): 
+    An example of this is when the website has a form for you to fill out
+    when you fill out this form and press the submit button; the data you typed
+    will be sent in the response body of the request and it is to the server.
+    What this does is a send data to the API server and mutates the data in the
+    backend server.
+
+app.put(): 
+    Put requests are used to send data to the API to update or create a 
+    resource. The Put method replaces all current representations of the target 
+    resouce with the request payload. Put is to update
+
+    When a put request createsa a resouce, the server with respond with a 
+    201(Created) and if the request is to modify existing resources the 
+    server will return a 200 (Ok) or a 204 (No Content). 
+
+app.delete(): 
+    This method deletes resources at a specifeid URL.
+
+app.listen():
+    Tells your server what port or (localhost) to listen on.
+
+app.use():
+    A way to register middleware.
+
+This Might Help: https://s3-us-west-2.amazonaws.com/assertible/blog/swagger-petstore-store-endpoints.png
+
+-------------------------------------------------------------------------------
+STEPS TO CREATING A BASIC SERVER: 
+0. Always make sure your in right directory:
+        ** npm init -y **
+        ** npm install **
+        ** npm install morgan **
+1. Install and Require Express: 
+        **npm install express** -> const express = require('express')
+2. Invoke Express with : 
+        const app = express()
+3. Create a listener for port:
+        app.listen(3000,()=>{console.log('listening on port 3000')})
+
+4. Create Routes; express also has routers you can use 
+    to move your routes to another file:
+    const router = express.Router()
+
+5. res.send files or html as jsx or res.json or sendStatus for error
+
+******Fin*******

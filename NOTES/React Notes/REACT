@@ -1,0 +1,57 @@
+React is a JavaScript Library for building user interfaces
+
+React has funcional and class components.
+
+Making an react component you have to: 
+1. **npm install react react-dom***
+
+2. import react from 'react' 
+
+3. import reactDOM from 'react-dom'
+ 
+4. Make a html file/ and an express route Application
+
+5. First creat your root component:
+
+class Root extends React.Component{
+    constructor(){
+        super()
+        this.sate = {
+            hello: "HI"
+        }
+    }
+    render(){
+        return (
+            <div> 
+            <h1>HELLO THIS IS REACT</h1>
+            </div>
+        )
+    }
+}
+export default Root
+React.render(<Root/>, document.getElementById('app'))
+
+6. In your html body div make a id called 'app'
+
+********** 
+Props are passed from parent to child :
+<ChildOfRoot hello = {this.state.hello}
+
+
+**********************************
+Functional Components: 
+function Root (props){
+    return (
+        <div>
+        <h1> hellooo </h1
+        </div>
+    )
+}
+------------------------------------------------------------
+to get information from data base into your Root component
+
+async componentDidMount() {
+const response = await axios.get('/urlRouteNOT-FILE-ROUTE')
+const newState = response.data
+this.setState{oldState: newState}
+}

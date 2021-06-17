@@ -1,0 +1,36 @@
+Redux is a state managemnet library. A state container for 
+JavaScript apps. 
+
+**npm install redux** 
+The whole global state of our app is stored in an object tree
+inside a single store.
+
+
+Just like React, Redux is a part of the front-end. Redux works
+to simplify React. 
+
+BASIC SET UP:
+
+**npm install redux, reduxlogger**
+
+ import {createStore, applyMiddleware} from' redux
+
+ import loggerMiddleware from 'redux-logger' 
+
+ const initialState = {balance: 0} 
+
+ const reducer = (state = initialState, action) => {
+     switch(action.type) {
+         case 'DEPOSIT':
+         return {balance: state.balance + action.amount}
+     }
+ }
+
+ const deposit5 = document.getElementById('button')
+ const balance = document.getElementById('balance')
+ deposit5.onclick = () => store.dispatch({type: 'DEPOSIT;, amount: 5})
+    const store = createStore(reducer)
+ store.subscribe(()=>{
+     balance.innerText = `${store.getState().balance}`
+ })
+

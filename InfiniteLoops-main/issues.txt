@@ -1,0 +1,88 @@
+IL-0001 Cannot Add Items to Cart
+
+Users are being shown a cryptic error message each time they click
+"Add To Cart." This happens for every item shown under 'Available Loops.'
+
+This trace appears in my console:
+TypeError: t.getProductById(...) is undefined
+    Z ShoppingCartPreview.vue:1
+
+
+Expected:
+[ x ] 1. As a User, I should be able to add items to my cart
+[ x ] 2. Items in my cart should be displayed when I click the
+shopping cart icon in the header
+
+How I solved this: 
+After looking through all the files, I then looked for where addTocart was being called. I familiarized myself with the functions and methods. 
+So what I gathered is the addToCart function is a function in the getters of the product's context. 
+The addTocart function's parameters are the context and the productId. 
+
+The cause of error:
+The button "add To cart" when clicked calls the addToCart function and passes in "title" and for this reason once addTocart is called 
+it displays an error message that the product cannot be found. This is because "title" is not a number therefore
+the function getProductById (called within addToCart) will not by able to use it. 
+
+The solution:
+In the ProductCard.vue file, instead of passing in title as an argument to addToCart(), I passed in "id", like so (@click = "addToCart(id)"). 
+The error message no longer showed, and the cart displayed the products selected!
+
+************************************************************************************
+
+IL-0002 Total Is not Properly Formatted in Shopping Cart
+
+Users are reporting that occasionally, the total shown has more than
+two decimal values (See IL0002.png)
+
+Expected:
+ [ x ] 1. As a User, when my cart is not empty, I should see the total value
+in my Shopping Cart Component
+ [ x ] 2. The Total value shown should have exactly two decimal places (for cents)
+
+How I solved this: 
+First I decided in order to fix this bug the image referred to I needed to find what triggers it. 
+So I went to the main page and opened up the shopping cart. I proceeded to spam click a product's 
+"add to cart" button. The same bug appeared. It seems as if when it reaches a certain total it then starts
+to mess up the count. 
+
+The solution: 
+A simple solution I used to solve this was by add "toFixed(2)" to the end of where cartTotal is called 
+in the ShoppingCartPreview.vue. This .toFixed(2) function makes sure that the decimal is rounded and stays at only 2 decimal places.
+For example, to recreate the bug I add 22 loops of "Shark and Aliens 2" and the price total bugged to "1.31999998". 
+After fixing the bug with "cartTotal.toFixed(2)" the total price of 22 of those items came out to be "1.232". 
+************************************************************************************
+
+
+IL-0003 Unable to Create Order "Missing Email"
+
+Users are reporting that they cannot complete their order, with items
+in their shopping carts.
+
+They are shown a notice that their oder is being created, but upon further
+inspection, they are receiving a 400 Bad Request from `/api/v1/orders`
+
+"Unable to create order. Missing email"
+
+Most of the affected users have confirmed that they _did_ include an email
+address. We have been able to reproduce reliably on our end.
+
+
+How I solved this: 
+
+First, I replicated the error. I see that when you create an order the commit on the main page
+shows "Your order is being created". In the brower console I did not see the error that stated an email was missing.
+I then used Postman to call a POST route for "localhost:1234/api/v1/orders", there I created a backend order, filling in the request body with 
+firstname, lastname, email, and product. I was given the error message that an email was missing. 
+Secondly, I traced back the action of creating an order. When the user submits the 
+order form, the order's detail is then passed to the createOrder method on the orderCeater object. 
+I then searched for where "email" is being called. I look through the files that are called to controll the order api routes
+I see that the message " Unable to create order. Missing Email" was called under a conditional statement. 
+the statement had the wrong parameter name. Instead of "email" the if statement checked if the parameter "mail"
+was present in the created order or not. And of course since the parameter doesnt exit on the order object it remained undefined.
+My solution was to change it to the following: in the orders_controller.rb file.
+
+" if order_params[:email].blank?
+      render json: { error: 'Unable to create order. Missing email' }, status: 400
+      return 
+      
+"

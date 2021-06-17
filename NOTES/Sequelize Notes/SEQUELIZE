@@ -1,0 +1,51 @@
+Sequelize is a promise-based node.js ORM for postgres. 
+An ORM is an Object Relational Mapper (maps relationships)
+
+1. Install Sequelize: 
+
+    npm install - -save Sequelize
+
+2. Create a database:
+
+    createdb databaseName
+
+3. Postgres and Postico to check if the database is there
+
+**funfact**: 
+    most of the methods provided by Sequelize are asynchronous, 
+    therefore are promises.
+***********
+
+How to create a Model: (a model is a table in the databases)
+const db = 
+const Model= db.define("model", {
+    name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    }
+}) 
+
+Class Methods:
+Model.classMethods
+
+Instance Method: 
+Model.prototype.instanceMethods
+
+Eager-loading:
+
+this. findAll({
+    where: {
+        userType: "TEACHER",
+    },
+    include: {
+        model: User,
+        as: "mentee" 
+    }
+})
+
+module.exports = Model
+*****************************
+- Primary Keys are unique ids or rows in a table;
+- A Foreign Key is a row in a table that holds other tables 
+primary keys.
+

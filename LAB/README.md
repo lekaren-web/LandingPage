@@ -1,1 +1,0 @@
-This is my practice lab for git
